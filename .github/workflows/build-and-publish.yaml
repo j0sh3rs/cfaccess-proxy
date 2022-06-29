@@ -11,21 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Check out code
-
-      - uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.39.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          INITIAL_VERSION: 0.1.0
+        id: semver
+      - uses: mr-smithers-excellent/docker-build-push@v5.6
         name: Build & push Docker image
         with:
           image: cfaccess-proxy
-          tags: latest
+          tags: ${{ steps.semver.outputs.tag}}
+          addLatest: true
           registry: ghcr.io
           dockerfile: Dockerfile
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Tag
-        uses: K-Phoen/semver-release-action@v1.3.1
-        with:
-          release_branch: main
-          tag: v0.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
