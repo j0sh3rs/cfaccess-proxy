@@ -9,5 +9,4 @@ RUN echo "go mod flag: $MOD" && CGO_ENABLED=0 GOOS=linux go build -mod=$MOD -a -
 FROM alpine:20220328
 WORKDIR /app
 COPY --from=builder /build/main /app
-EXPOSE 8080
-CMD ["./main"]
+ENTRYPOINT ["/bin/sh", "-c", "./main"]
