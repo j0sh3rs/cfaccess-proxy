@@ -1,29 +1,17 @@
 name: Build-And-Publish
 
 on:
-  push:
-    branches:
-      - "main"
+  workflow_run:
+    workflows: [TagBump]
+    branches: [main]
+    types:
+      - completed
 
 permissions:
   contents: write
   packages: write
-  # issues: write
 
 jobs:
-  tag:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        name: Check out code
-        with:
-          fetch-depth: '0'
-      - name: Bump version and push tag
-        uses: mathieudutour/github-tag-action@v6.0
-        env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: main
-          default_bump: false
   build-and-release:
     needs: tag
     runs-on: ubuntu-latest
@@ -41,7 +29,7 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v3
         with:
-          args: release --rm-dist --debug
+          args: release --rm-dist
           distribution: goreleaser
           version: latest
         env:
