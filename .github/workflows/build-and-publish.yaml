@@ -18,7 +18,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-          RELEASE_BRANCHES: master
+          RELEASE_BRANCHES: main
         id: semver
       - name: Fetch all tags
         run: git fetch --force --tags
