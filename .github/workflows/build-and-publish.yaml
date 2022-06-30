@@ -6,7 +6,7 @@ on:
       - "main"
 
 jobs:
-  docker:
+  tag:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,7 +19,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           RELEASE_BRANCHES: main
-        id: semver
+  build-and-release:
+    needs: tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Check out code
+        with:
+          fetch-depth: '0'
       - name: Fetch all tags
         run: git fetch --force --tags
       - name: Set up Go
