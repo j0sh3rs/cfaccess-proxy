@@ -3,12 +3,12 @@ project_name: cfaccess-proxy
 before:
   hooks:
     - 'go mod download'
-    - 'go mod flag: readonly'
     - 'go mod tidy'
 
 builds:
 - env:
     - CGO_ENABLED=0
+    - GOFLAGS="-mod=readonly"
   main: ./main.go
   goos:
     - linux
