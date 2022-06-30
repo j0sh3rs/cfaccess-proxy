@@ -20,13 +20,17 @@ jobs:
           WITH_V: true
           RELEASE_BRANCHES: master
         id: semver
-      - uses: mr-smithers-excellent/docker-build-push@v5.6
-        name: Build & push Docker image
+      - name: Fetch all tags
+        run: git fetch --force --tags
+      - name: Set up Go
+        uses: actions/setup-go@v3
         with:
-          image: cfaccess-proxy
-          tags: ${{ steps.semver.outputs.tag}}
-          addLatest: true
-          registry: ghcr.io
-          dockerfile: Dockerfile
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          go-version: 1.18
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v3
+        with:
+          args: release --rm-dist
+          distribution: goreleaser
+          version: latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
