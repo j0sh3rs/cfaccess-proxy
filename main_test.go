@@ -219,7 +219,7 @@ func TestVerifierMiddleware(t *testing.T) {
 			}`, valid.Unix()),
 			upstream: false,
 			fn: func(t *testing.T, r *http.Request, rr *httptest.ResponseRecorder) {
-				expected := `Invalid token: oidc: token is expired (Token Expiry: 2009-11-10 19:00:00 -0500 EST)`
+				expected := `Invalid token: oidc: token is expired (Token Expiry: 2009-11-11 00:00:00 +0000 UTC)`
 				if diff := cmp.Diff(expected, rr.Body.String()); diff != "" {
 					t.Errorf("Wrong user was authenticated (-want +got):\n%s", diff)
 				}
