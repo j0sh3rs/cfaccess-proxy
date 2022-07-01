@@ -19,5 +19,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_branches: main
           default_bump: patch
-          dry_run: true
-          custom_release_rules: "bug:patch:Bug Fixes,ci:no-release:CI"
+          custom_release_rules: "bug:patch:Bug Fixes"
