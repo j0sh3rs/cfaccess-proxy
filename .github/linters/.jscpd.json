@@ -1,9 +1,6 @@
 {
     "threshold": 0,
-    "reporters": [
-        "html",
-        "markdown"
-    ],
+    "reporters": ["console"],
     "ignore": [
         "main_test.go",
         "**/.git/**",
