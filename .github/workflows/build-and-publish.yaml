@@ -10,7 +10,6 @@ on:
 permissions:
   contents: write
   packages: write
-  repo: write
 
 jobs:
   build-and-release:
