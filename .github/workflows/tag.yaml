@@ -14,9 +14,8 @@ jobs:
         with:
           fetch-depth: '0'
       - name: Bump version and push tag
-        uses: mathieudutour/github-tag-action@v6.0
+        uses: anothrNick/github-tag-action@1.39.0
         env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: main
-          default_bump: false
+          WITH_V: true
+          RELEASE_BRANCHES: main
