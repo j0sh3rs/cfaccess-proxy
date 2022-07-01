@@ -13,9 +13,13 @@ jobs:
         name: Check out code
         with:
           fetch-depth: '0'
+      - name: Fetch all tags
+        run: git fetch --force --tags
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.39.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           RELEASE_BRANCHES: main
+          DRY_RUN: true
+          VERBOSE: true
