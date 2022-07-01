@@ -20,4 +20,4 @@ jobs:
           release_branches: main
           default_bump: patch
           dry_run: true
-          custom_release_rules: "bug:patch:Bug Fixes,ci:none:CI"
+          custom_release_rules: "bug:patch:Bug Fixes,ci:false:CI"
