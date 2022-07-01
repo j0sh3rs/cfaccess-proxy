@@ -113,11 +113,12 @@ type claimsTest struct {
 
 func (c *claimsTest) run(t *testing.T) {
 	cfg := &Config{ //nolint: typecheck
-		AuthDomain:    "https://your-own.cloudflareaccess.com",
-		PolicyAUD:     "my-policy-aud",
-		ForwardHeader: "X-WEBAUTH-USER",
-		ForwardHost:   "localhost:3000",
-		ListenAddr:    ":3002",
+		AuthDomain:         "https://your-own.cloudflareaccess.com",
+		PolicyAUD:          "my-policy-aud",
+		ForwardUserHeader:  "X-WEBAUTH-USER",
+		ForwardEmailHeader: "X-WEBAUTH-EMAIL",
+		ForwardHost:        "localhost:3000",
+		ListenAddr:         ":3002",
 	}
 
 	config := &oidc.Config{
@@ -196,7 +197,7 @@ func TestVerifierMiddleware(t *testing.T) {
 			}`, valid.Unix()),
 			upstream: true,
 			fn: func(t *testing.T, r *http.Request, rr *httptest.ResponseRecorder) {
-				email := r.Header.Get("X-WEBAUTH-USER")
+				email := r.Header.Get("X-WEBAUTH-EMAIL")
 				if diff := cmp.Diff(email, "test@example.com"); diff != "" {
 					t.Errorf("Wrong user was authenticated (-want +got):\n%s", diff)
 				}
@@ -218,7 +219,7 @@ func TestVerifierMiddleware(t *testing.T) {
 			}`, valid.Unix()),
 			upstream: false,
 			fn: func(t *testing.T, r *http.Request, rr *httptest.ResponseRecorder) {
-				expected := `Invalid token: oidc: token is expired (Token Expiry: 2009-11-11 01:00:00 +0100 CET)`
+				expected := `Invalid token: oidc: token is expired (Token Expiry: 2009-11-10 19:00:00 -0500 EST)`
 				if diff := cmp.Diff(expected, rr.Body.String()); diff != "" {
 					t.Errorf("Wrong user was authenticated (-want +got):\n%s", diff)
 				}
