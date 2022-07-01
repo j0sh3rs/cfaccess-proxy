@@ -39,7 +39,7 @@ builds:
     - 7
 
 dockers:
-- image_templates: ["ghcr.io/j0sh3rs/cfaccess-proxy:{{ .Version }}"]
+- image_templates: ["ghcr.io/j0sh3rs/cfaccess-proxy:{{ .Version }}","ghcr.io/j0sh3rs/cfaccess-proxy:latest"]
   dockerfile: goreleaser.Dockerfile
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
