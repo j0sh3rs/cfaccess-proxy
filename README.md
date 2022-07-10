@@ -61,12 +61,12 @@ Security concerns will always be the highest priority. See [SECURITY.md](SECURIT
 
 Beyond security fixes, here is a general roadmap (not ranked):
 
-- [] Prometheus Metrics integration
-- [] OTEL Integration, for use with [SigNoz](https://signoz.io) APM
-- [] Rename config vars to be easier to read (and make user header optional)
-- [] Enable loading from config json
-- [] Enable config reloads for zero downtime
-- [] Improve documentation and examples for Docker/Kubernetes usage, w/ sidecar examples
+- [ ] Prometheus Metrics integration
+- [ ] OTEL Integration, for use with [SigNoz](https://signoz.io) APM
+- [ ] Rename config vars to be easier to read (and make user header optional)
+- [ ] Enable loading from config json
+- [ ] Enable config reloads for zero downtime
+- [ ] Improve documentation and examples for Docker/Kubernetes usage, w/ sidecar examples
 
 ## 🤚🏻 Contributing
 
