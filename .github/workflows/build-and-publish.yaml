@@ -1,8 +1,8 @@
-name: Build-And-Publish
+name: build_and_publish
 
 on:
   workflow_run:
-    workflows: [TagBump]
+    workflows: [tag_bump]
     branches: [main]
     types:
       - completed
@@ -25,13 +25,24 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: 1.18
+      # Verify only golang or Docker files have changed before we bump
+      - name: Get changed files
+        id: changed_files
+        uses: tj-actions/changed-files@v23.1
+        files: |
+          go.*
+          main.go
+          *goreleaser*
+          *Dockerfile
       - name: Docker Login
+        if: steps.changed_files.outputs.any_changed == 'true'
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Run GoReleaser
+        if: steps.changed_files.outputs.any_changed == 'true'
         uses: goreleaser/goreleaser-action@v3
         with:
           args: release --rm-dist

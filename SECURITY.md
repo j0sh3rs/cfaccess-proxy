@@ -11,6 +11,6 @@ currently being supported with security updates.
 
 ## Reporting a Vulnerability
 
-If you catch a vulnerability here, please open an issue!
+If you catch a vulnerability here, please open an issue with the `security` label!
 
 This is my first golang project, so input and help is welcomed!

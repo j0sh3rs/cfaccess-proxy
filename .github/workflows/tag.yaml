@@ -1,4 +1,4 @@
-name: TagBump
+name: tag_bump
 
 on:
   push:
@@ -13,7 +13,19 @@ jobs:
         name: Check out code
         with:
           fetch-depth: '0'
+
+      # Verify only golang or Docker files have changed before we bump
+      - name: Get changed files
+        id: changed_files
+        uses: tj-actions/changed-files@v23.1
+        files: |
+          go.*
+          main.go
+          *goreleaser*
+          *Dockerfile
+
       - name: Bump version and push tag
+        if: steps.changed_files.outputs.any_changed == 'true'
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
