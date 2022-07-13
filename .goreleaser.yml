@@ -31,16 +31,20 @@ builds:
   goarch:
     - amd64
     - arm64
+    - arm
   goarm:
     - 7
+    - 6
 
 dockers:
 - image_templates:
-  - "ghcr.io/j0sh3rs/cfaccess-proxy:{{ .Version }}"
-  - "ghcr.io/j0sh3rs/cfaccess-proxy:latest"
+  - "ghcr.io/j0sh3rs/{{.ProjectName}}:{{ .Version }}"
+  - "ghcr.io/j0sh3rs/{{.ProjectName}}:latest"
   dockerfile: goreleaser.Dockerfile
   goos: linux
-  goarm: '7'
+  goarch: amd64,arm,arm64
+  goarm: 6,7
+  use: buildx
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
   - --label=org.opencontainers.image.description={{ .ProjectName }}
@@ -50,3 +54,4 @@ dockers:
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.licenses=Apache-2.0
+  - "--platform=linux/arm64/v8,linux/arm/v7,linux/amd64"
