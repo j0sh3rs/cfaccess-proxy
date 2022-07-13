@@ -1,5 +1,3 @@
-// Copyright 2020 Jorge Luis Betancourt <github@jorgelbg.me>
-//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -87,7 +85,7 @@ func VerifyToken(next http.Handler, tokenVerifier *oidc.IDTokenVerifier, cfg *Co
 		r.Header.Add(cfg.ForwardEmailHeader, claims.Email)
 		r.Header.Add(cfg.ForwardUserHeader, u)
 		log.Printf("Authenticated as: %s", claims.Email)
-		log.Printf("Username extracted as: %s", u)
+		// log.Printf("Username extracted as: %s", u)
 
 		next.ServeHTTP(w, r)
 	}
@@ -114,7 +112,7 @@ func main() {
 
 	director := func(req *http.Request) {
 		req.Header.Add("X-Forwarded-Host", req.Host)
-		req.Header.Add("X-Origin-Host", "cloudflare-access-proxy")
+		req.Header.Add("X-Origin-Host", "cfaccess-proxy")
 		// TODO: should we trust on the Schema of the original request?
 		req.URL.Scheme = "http"
 

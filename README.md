@@ -25,7 +25,7 @@ the required values. Now you can run the cfaccess-proxy container with the follo
 
 ```
 cp .env.template .env
-docker run --rm -d --env-file $(pwd)/.env --name cfaccess-proxy -p 3001:3001 j0sh3rs/cfaccess-proxy
+docker run --rm -d --env-file $(pwd)/.env --name cfaccess-proxy -p 3001:3001 ghcr.io/j0sh3rs/cfaccess-proxy
 ```
 
 This will start the proxy on the specified address and it will start to listen for incoming requests.

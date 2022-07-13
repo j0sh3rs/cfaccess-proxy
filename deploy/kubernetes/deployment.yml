@@ -18,10 +18,10 @@ spec:
         app: cfaccess-proxy
     spec:
       containers:
-        - image: j0sh3rs/cfaccess-proxy
+        - image: ghcr.io/j0sh3rs/cfaccess-proxy
           name: cfaccess-proxy
           ports:
-            - containerPort: 3001
+            - containerPort: 80
           env:
             - name: AUTHDOMAIN
               value: https://<your-own-domain>.cloudflareaccess.com
@@ -32,9 +32,9 @@ spec:
             - name: FORWARDEMAILHEADER
               value: X-WEBAUTH-EMAIL
             - name: FORWARDHOST
-              value: <grafana-host>:3000
+              value: <downstream-host>:<port>
             - name: ADDR
-              value: :3001
+              value: :80
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -46,8 +46,8 @@ metadata:
   namespace: monitoring
 spec:
   ports:
-    - name: "3001"
-      port: 3001
-      targetPort: 3001
+    - name: http
+      port: 80
+      targetPort: 80
   selector:
     app: cfaccess-proxy
