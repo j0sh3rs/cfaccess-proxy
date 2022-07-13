@@ -3,38 +3,39 @@ project_name: cfaccess-proxy
 changelog:
   use: github
   groups:
-    - title: Features
-      regexp: "^.*feat[(\\w)]*:+.*$"
-      order: 0
-    - title: 'Bug fixes'
-      regexp: "^.*fix[(\\w)]*:+.*$"
-      order: 1
-    - title: Others
-      order: 999
+  - title: Features
+    regexp: "^.*feat[(\\w)]*:+.*$"
+    order: 0
+  - title: 'Bug fixes'
+    regexp: "^.*fix[(\\w)]*:+.*$"
+    order: 1
+  - title: Others
+    order: 999
   filters:
     exclude:
-      - '^docs:'
-      - typo
-      - (?i)foo
-      - 'ci'
+    - '^docs:'
+    - typo
+    - (?i)foo
+    - 'ci'
 
 before:
   hooks:
-    - 'go mod download'
-    - 'go mod tidy'
+  - 'go mod download'
+  - 'go mod tidy'
 
 builds:
-- env: [CGO_ENABLED=0]
+- env:
+  - CGO_ENABLED=0
   main: ./main.go
   goos:
-    - linux
+  - linux
   goarch:
-    - amd64
-    - arm64
+  - amd64
+  - arm64
 
 dockers:
 - image_templates:
-  - "ghcr.io/j0sh3rs/{{.ProjectName}}:{{ .Version }}-amd64"
+  - "ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}-amd64"
   dockerfile: goreleaser.Dockerfile
   goos: linux
   goarch: amd64
@@ -42,15 +43,15 @@ dockers:
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
   - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/j0sh3rs/{{.ProjectName}}
-  - --label=org.opencontainers.image.source=https://github.com/j0sh3rs/{{.ProjectName}} 
+  - --label=org.opencontainers.image.url=https://github.com/j0sh3rs/{{ .ProjectName }}
+  - --label=org.opencontainers.image.source=https://github.com/j0sh3rs/{{ .ProjectName }}
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.licenses=Apache-2.0
   - "--platform=linux/amd64"
 - image_templates:
-  - "ghcr.io/j0sh3rs/{{.ProjectName}}:{{ .Version }}-arm64"
+  - "ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}-arm64"
   dockerfile: goreleaser.Dockerfile
   goos: linux
   goarch: arm64
@@ -58,15 +59,19 @@ dockers:
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
   - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/j0sh3rs/{{.ProjectName}}
-  - --label=org.opencontainers.image.source=https://github.com/j0sh3rs/{{.ProjectName}} 
+  - --label=org.opencontainers.image.url=https://github.com/j0sh3rs/{{ .ProjectName }}
+  - --label=org.opencontainers.image.source=https://github.com/j0sh3rs/{{ .ProjectName }}
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.licenses=Apache-2.0
   - "--platform=linux/arm64/v8"
 docker_manifests:
-- name_template: ghcr.io/j0sh3rs/{{.ProjectName}}:{{ .Version }}
+- name_template: ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}
   image_templates:
   - ghcr.io/j0sh3rs/{{.ProjectName}}:{{ .Version }}-amd64
   - ghcr.io/j0sh3rs/{{.ProjectName}}:{{ .Version }}-arm64
+- name_template: ghcr.io/j0sh3rs/{{ .ProjectName }}:latest
+  image_templates:
+  - ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}-amd64
+  - ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}-arm64

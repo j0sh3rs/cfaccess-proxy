@@ -9,4 +9,4 @@ RUN echo "go mod flag: $MOD" && CGO_ENABLED=0 GOOS=linux go build -mod=$MOD -a -
 FROM scratch
 WORKDIR /app
 COPY --from=builder /build/main /app
-ENTRYPOINT ["/bin/sh", "-c", "./main"]
+ENTRYPOINT ["./main"]
