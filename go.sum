@@ -78,6 +78,8 @@ github.com/coreos/go-oidc/v3 v3.2.0 h1:2eR2MGR7thBXSQ2YbODlF0fcmgtliLCfr9iX6RW11
 github.com/coreos/go-oidc/v3 v3.2.0/go.mod h1:rEJ/idjfUyfkBit1eI1fvyr+64/g9dcKpAm8MJMesvo=
 github.com/coreos/go-oidc/v3 v3.3.0 h1:Y1LV3mP+QT3MEycATZpAiwfyN+uxZLqVbAHJUuOJEe4=
 github.com/coreos/go-oidc/v3 v3.3.0/go.mod h1:eHUXhZtXPQLgEaDrOVTgwbgmz1xGOkJNye6h3zkD2Pw=
+github.com/coreos/go-oidc/v3 v3.4.0 h1:xz7elHb/LDwm/ERpwHd+5nb7wFHL32rsr6bBOgaeu6g=
+github.com/coreos/go-oidc/v3 v3.4.0/go.mod h1:eHUXhZtXPQLgEaDrOVTgwbgmz1xGOkJNye6h3zkD2Pw=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
