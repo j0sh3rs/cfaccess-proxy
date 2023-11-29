@@ -53,7 +53,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Run GoReleaser
         if: steps.changed_files.outputs.any_changed == 'true'
-        uses: goreleaser/goreleaser-action@v4
+        uses: goreleaser/goreleaser-action@v5
         with:
           args: release --rm-dist
           distribution: goreleaser
