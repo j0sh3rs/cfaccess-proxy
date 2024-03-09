@@ -35,7 +35,7 @@ builds:
 
 dockers:
 - image_templates:
-  - "ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}-amd64"
+  - "ghcr.io/alexymantha/{{ .ProjectName }}:{{ .Version }}-amd64"
   dockerfile: goreleaser.Dockerfile
   goos: linux
   goarch: amd64
@@ -43,15 +43,15 @@ dockers:
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
   - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/j0sh3rs/{{ .ProjectName }}
-  - --label=org.opencontainers.image.source=https://github.com/j0sh3rs/{{ .ProjectName }}
+  - --label=org.opencontainers.image.url=https://github.com/alexymantha/{{ .ProjectName }}
+  - --label=org.opencontainers.image.source=https://github.com/alexymantha/{{ .ProjectName }}
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.licenses=Apache-2.0
   - "--platform=linux/amd64"
 - image_templates:
-  - "ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}-arm64"
+  - "ghcr.io/alexymantha/{{ .ProjectName }}:{{ .Version }}-arm64"
   dockerfile: goreleaser.Dockerfile
   goos: linux
   goarch: arm64
@@ -59,19 +59,19 @@ dockers:
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
   - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/j0sh3rs/{{ .ProjectName }}
-  - --label=org.opencontainers.image.source=https://github.com/j0sh3rs/{{ .ProjectName }}
+  - --label=org.opencontainers.image.url=https://github.com/alexymantha/{{ .ProjectName }}
+  - --label=org.opencontainers.image.source=https://github.com/alexymantha/{{ .ProjectName }}
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.licenses=Apache-2.0
   - "--platform=linux/arm64/v8"
 docker_manifests:
-- name_template: ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}
+- name_template: ghcr.io/alexymantha/{{ .ProjectName }}:{{ .Version }}
   image_templates:
-  - ghcr.io/j0sh3rs/{{.ProjectName}}:{{ .Version }}-amd64
-  - ghcr.io/j0sh3rs/{{.ProjectName}}:{{ .Version }}-arm64
-- name_template: ghcr.io/j0sh3rs/{{ .ProjectName }}:latest
+  - ghcr.io/alexymantha/{{.ProjectName}}:{{ .Version }}-amd64
+  - ghcr.io/alexymantha/{{.ProjectName}}:{{ .Version }}-arm64
+- name_template: ghcr.io/alexymantha/{{ .ProjectName }}:latest
   image_templates:
-  - ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}-amd64
-  - ghcr.io/j0sh3rs/{{ .ProjectName }}:{{ .Version }}-arm64
+  - ghcr.io/alexymantha/{{ .ProjectName }}:{{ .Version }}-amd64
+  - ghcr.io/alexymantha/{{ .ProjectName }}:{{ .Version }}-arm64

@@ -18,23 +18,23 @@ spec:
         app: cfaccess-proxy
     spec:
       containers:
-        - image: ghcr.io/j0sh3rs/cfaccess-proxy
+        - image: ghcr.io/alexymantha/cfaccess-proxy
           name: cfaccess-proxy
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           env:
-            - name: AUTHDOMAIN
+            - name: AUTH_DOMAIN
               value: https://<your-own-domain>.cloudflareaccess.com
-            - name: POLICYAUD
+            - name: POLICY_AUD
               value: <YOUR_POLICY_AUD_TOKEN>
-            - name: FORWARDUSERHEADER
-              value: X-WEBAUTH-USER
-            - name: FORWARDEMAILHEADER
-              value: X-WEBAUTH-EMAIL
-            - name: FORWARDHOST
+            - name: FORWARD_USER_HEADER
+              value: X-Remote-User
+            - name: FORWARD_EMAIL_HEADER
+              value: X-Remote-Email
+            - name: FORWARD_HOST
               value: <downstream-host>:<port>
-            - name: ADDR
-              value: :80
+            - name: LISTEN_ADDRESS
+              value: :8080
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -47,7 +47,7 @@ metadata:
 spec:
   ports:
     - name: http
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
   selector:
     app: cfaccess-proxy

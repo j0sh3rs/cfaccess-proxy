@@ -1,4 +1,4 @@
-module github.com/j0sh3rs/cfaccess-proxy
+module github.com/alexymantha/cfaccess-proxy
 
 go 1.19
 
