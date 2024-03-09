@@ -64,6 +64,8 @@ func VerifyToken(next http.Handler, tokenVerifier *oidc.IDTokenVerifier, cfg *Co
 
 		headers := r.Header
 
+		// TODO: Remove all X-Remote-* headers from client requests
+
 		// Make sure that the incoming request has our token header
 		// Could also look in the cookies for CF_AUTHORIZATION
 		accessJWT := headers.Get(CFJWTHeader)
