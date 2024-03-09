@@ -37,12 +37,13 @@ type CloudflareClaim struct {
 
 // Config is the general configuration (read from environment variables)
 type Config struct {
-	AuthDomain         string
-	ForwardEmailHeader string
-	ForwardHost        string
-	ForwardUserHeader  string
-	ListenAddr         string `envconfig:"ADDR"`
-	PolicyAUD          string
+	AuthDomain         string `envconfig:"AUTH_DOMAIN"`
+	ForwardEmailHeader string `envconfig:"FORWARD_EMAIL_HEADER"`
+	ForwardHost        string `envconfig:"FORWARD_HOST"`
+	ForwardUserHeader  string `envconfig:"FORWARD_USER_HEADER"`
+	ListenAddr         string `envconfig:"LISTEN_ADDRESS"`
+	PolicyAUD          string `envconfig:"POLICY_AUD"`
+	DexPath            string `envconfig:"DEX_PATH"`
 }
 
 var (
@@ -52,6 +53,15 @@ var (
 // VerifyToken is a middleware to verify a CF Access token
 func VerifyToken(next http.Handler, tokenVerifier *oidc.IDTokenVerifier, cfg *Config) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
+		// If DexID is set, the proxy should only authenticate on the callback url
+		// See https://dexidp.io/docs/connectors/authproxy/
+		if cfg.DexPath != "" {
+			if r.URL.Path != cfg.DexPath {
+				next.ServeHTTP(w, r)
+				return
+			}
+		}
+
 		headers := r.Header
 
 		// Make sure that the incoming request has our token header
