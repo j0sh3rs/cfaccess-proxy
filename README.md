@@ -46,12 +46,13 @@ because the current user has not been logged out of Cloudflare Access, nor will 
 
 All the configuration options are passed to cfaccess-proxy as environment variables:
 
-* `AUTHDOMAIN`: This is your cloudflare authentication domain. Normally in the form of `https://<your-own-domain>.cloudflareaccess.com`.
-* `POLICYAUD`: Application Audience (AUD) Tag.
-* `FORWARDUSERHEADER`: The header to be forwarded upstream to indicate which user is currently logged in.
-* `FORWARDEMAILHEADER`: The header to be forwarded upstream to indicate the email of the user currently logged in.
-* `FORWARDHOST`: Downstream URL where your service listens
-* `ADDR`: Address where the cfaccess-proxy will listen for incoming connections.
+* `AUTH_DOMAIN`: This is your cloudflare authentication domain. Normally in the form of `https://<your-own-domain>.cloudflareaccess.com`.
+* `POLICY_AUD`: Application Audience (AUD) Tag.
+* `FORWARD_USER_HEADER`: The header to be forwarded upstream to indicate which user is currently logged in.
+* `FORWARD_EMAIL_HEADER`: The header to be forwarded upstream to indicate the email of the user currently logged in.
+* `FORWARD_HOST`: Downstream URL where your service listens
+* `LISTEN_ADDRESS`: Address where the cfaccess-proxy will listen for incoming connections.
+* `DEX_PATH`: URL Path for the Dex callback. Authentication will only be done on this path. See [Dex - Auth Proxy](https://dexidp.io/docs/connectors/authproxy/#configuration)
 
 ## 👨🏻‍💻 Developing
 
@@ -63,7 +64,7 @@ Beyond security fixes, here is a general roadmap (not ranked):
 
 - [ ] Prometheus Metrics integration
 - [ ] OTEL Integration, for use with [SigNoz](https://signoz.io) APM
-- [ ] Rename config vars to be easier to read (and make user header optional)
+- [x] Rename config vars to be easier to read (and make user header optional)
 - [ ] Enable loading from config json
 - [ ] Enable config reloads for zero downtime
 - [ ] Improve documentation and examples for Docker/Kubernetes usage, w/ sidecar examples

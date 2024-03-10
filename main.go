@@ -57,6 +57,7 @@ func VerifyToken(next http.Handler, tokenVerifier *oidc.IDTokenVerifier, cfg *Co
 		// If DexID is set, the proxy should only authenticate on the callback url
 		// See https://dexidp.io/docs/connectors/authproxy/
 		if cfg.DexPath != "" {
+			fmt.Printf("Path: %s\n", r.URL.Path)
 			if r.URL.Path != cfg.DexPath {
 				next.ServeHTTP(w, r)
 				return
