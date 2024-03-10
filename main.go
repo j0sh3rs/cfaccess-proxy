@@ -26,7 +26,8 @@ import (
 
 const (
 	// CFJWTHeader is the header key set by Cloudflare Access after a successful authentication
-	CFJWTHeader = "Cf-Access-Jwt-Assertion"
+	CFJWTHeader           = "Cf-Access-Jwt-Assertion"
+	CFAuthorizationCookie = "CF_Authorization"
 )
 
 // CloudflareClaim holds the claims about the End-User/Authentication event.
@@ -62,13 +63,11 @@ func VerifyToken(next http.Handler, tokenVerifier *oidc.IDTokenVerifier, cfg *Co
 			}
 		}
 
-		headers := r.Header
-
 		// TODO: Remove all X-Remote-* headers from client requests
 
 		// Make sure that the incoming request has our token header
 		// Could also look in the cookies for CF_AUTHORIZATION
-		accessJWT := headers.Get(CFJWTHeader)
+		accessJWT := parseJWT(r)
 		if accessJWT == "" {
 			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("No token on the request")) //nolint: errcheck
@@ -103,6 +102,20 @@ func VerifyToken(next http.Handler, tokenVerifier *oidc.IDTokenVerifier, cfg *Co
 	}
 
 	return http.HandlerFunc(fn)
+}
+
+func parseJWT(r *http.Request) string {
+	accessJWT := r.Header.Get(CFJWTHeader)
+	if accessJWT != "" {
+		return accessJWT
+	}
+
+	cookie, err := r.Cookie(CFAuthorizationCookie)
+	if err != nil {
+		return ""
+	}
+
+	return cookie.Value
 }
 
 func main() {
