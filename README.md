@@ -62,6 +62,7 @@ Security concerns will always be the highest priority. See [SECURITY.md](SECURIT
 
 Beyond security fixes, here is a general roadmap (not ranked):
 
+- [ ] Support HTTPS with custom certificates
 - [ ] Prometheus Metrics integration
 - [ ] OTEL Integration, for use with [SigNoz](https://signoz.io) APM
 - [x] Rename config vars to be easier to read (and make user header optional)
