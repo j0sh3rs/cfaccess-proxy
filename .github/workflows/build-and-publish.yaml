@@ -28,7 +28,7 @@ jobs:
       # Verify only golang or Docker files have changed before we bump
       - name: Get changed files
         id: changed_files
-        uses: tj-actions/changed-files@v26.1
+        uses: tj-actions/changed-files@v44
         with:
           files: |
             go.*
@@ -36,7 +36,7 @@ jobs:
             *goreleaser*
             *Dockerfile
       - name: Cache Go modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cache/go-build
