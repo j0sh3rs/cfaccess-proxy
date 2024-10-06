@@ -69,6 +69,7 @@ func VerifyToken(next http.Handler, tokenVerifier *oidc.IDTokenVerifier, cfg *Co
 		// Make sure that the incoming request has our token header
 		// Could also look in the cookies for CF_AUTHORIZATION
 		accessJWT := parseJWT(r)
+		fmt.Println(accessJWT)
 		if accessJWT == "" {
 			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("No token on the request")) //nolint: errcheck
