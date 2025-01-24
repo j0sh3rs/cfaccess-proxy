@@ -28,7 +28,7 @@ jobs:
       # Verify only golang or Docker files have changed before we bump
       - name: Get changed files
         id: changed_files
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v45
         with:
           files: |
             go.*
