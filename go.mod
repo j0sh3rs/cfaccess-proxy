@@ -6,7 +6,7 @@ toolchain go1.23.5
 
 require (
 	github.com/coreos/go-oidc/v3 v3.12.0
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	gopkg.in/square/go-jose.v2 v2.6.0
 )
